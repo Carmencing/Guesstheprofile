@@ -1,0 +1,219 @@
+/* Apply width and height calculations consistently to every element. */
+* {
+  box-sizing: border-box;
+}
+
+
+/* Basic page styles. */
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 8px;
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  color: #f5f5f5;
+  background-color: #303030;
+}
+
+.game {
+  width: 100%;
+  min-height: calc(100vh - 16px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 2.2rem;
+  color: #ff7777;
+}
+
+/* Hide these inputs; labels elsewhere act as their visible controls. */
+.game > input,
+.reveal {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Profile slides and their picture areas. */
+.slide {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px;
+  position: relative;
+}
+
+/* Show the slide immediately after the selected radio button. */
+.slide-radio:checked + .slide {
+  display: grid;
+}
+
+.carousel {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Large, transparent hover zones sit over the left and right edges of the picture. */
+.arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8%;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  opacity: .25;
+  transition: opacity 180ms ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrow:hover {
+  opacity: 1;
+}
+
+.arrow.prev {
+  left: 0;
+}
+
+.arrow.next {
+  right: 0;
+}
+
+/* Keep the arrows visible on touch screens, which don't have hover. */
+@media (hover: none) {
+  .arrow {
+    opacity: 1;
+  }
+}
+
+/* Navigation dots sit along the bottom of the picture area. */
+.dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dots label {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #303030;
+  cursor: pointer;
+}
+
+.dots label.on {
+  background: #fff;
+}
+/* Arrange the category name, questions, score, and submit control. */
+.form {
+  display: flex;
+  padding: 8px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category {
+  padding: 8px 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.category-name {
+  color: #ff7777;
+}
+
+.field {
+  display: grid;
+  font-size: 1.5rem;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  gap: 4px 8px;
+}
+
+.guess {
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  padding: 8px;
+  border: 1px solid #888;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+}
+
+/* Keep answer feedback hidden until the user submits. */
+.mark {
+  display: none;
+  grid-column: 2;
+  font: 1rem Arial, Helvetica, sans-serif;
+}
+
+/* Reveal answer feedback after submitting. */
+.reveal:checked ~ .form .mark {
+  display: block;
+}
+
+.reveal:checked ~ .form .field.correct .mark {
+  color: #81c784;
+}
+
+.reveal:checked ~ .form .field.correct .icon::before {
+  content: "✓";
+}
+
+.reveal:checked ~ .form .field.incorrect .mark {
+  color: #ff8a80;
+}
+
+.reveal:checked ~ .form .field.incorrect .icon::before {
+  content: "✗";
+}
+
+.submit {
+  align-self: flex-end;
+  margin-top: auto;
+  padding: 8px 16px;
+  border: 2px solid #ff8a80;
+  background: #fff;
+  color: #ff8a80;
+  font-weight: bold;
+  font-size: 2rem;
+  cursor: pointer;
+}
+/* On narrow screens, stack the picture above the questions. */
+@media (max-width: 700px) {
+  .slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(220px, 40vh) auto;
+    overflow: auto;
+  }
+
+  .field {
+    grid-template-columns: 90px 1fr;
+  }
+}
