@@ -43,6 +43,11 @@ const PROFILES = [
     gender: "Female", sexuality: "Unlabeled", age: "20", continent: "North America",major: "Bioengineering",
     image: "A.jpg"
   }),
+    new Profile({
+    category: "Desk",
+    gender: "Non-Binary", sexuality: "Bisexual", age: "22", continent: "North America",major: "Computer Engineering",
+    image: "C.jpeg",
+  }),
   new Profile({
     category: "Dinner",
     gender: "Male", sexuality: "Heterosexual", age: "25", continent: "North America", major: "Biology",
@@ -53,6 +58,7 @@ const PROFILES = [
     gender: "Male", sexuality: "Bisexual", age: "20", continent: "North America",major: "Art & Design: Games + Playable Media",
     image: "W.jpg",
   }),
+  
 ];
 
 /* Build the questions and slides from FIELDS and PROFILES. */
